@@ -208,7 +208,7 @@ simpl in |- *. trivial with v62. rewrite mult_sym. simpl in |- *. elim plus_n_O.
 trivial with v62. auto with v62. exact H1. exact H1. rewrite length_R1; auto with v62.
  exact H1. apply le_minus_minus. auto with v62. exact H0. exact H1.
 rewrite length_R1. auto with v62. exact H1. rewrite length_R1; auto with v62.
-simpl in |- *. rewrite minus_Sn_m. simpl in |- *. auto with v62. exact H0. exact H1. 
+exact H1.
 rewrite length_R2; auto with v62. exact H0. simpl in |- *. rewrite minus_Sn_m.
 auto with v62. auto with v62. exact H1. rewrite length_BV_full_adder_sum; auto with v62.
 unfold lt in |- *. rewrite length_R2. auto with v62. exact H1. transitivity size; auto with v62. 
