@@ -35,7 +35,7 @@
    des registres (R1 et R2)
    et des lemmes sur les longueurs des registres
 *)
-   
+
 Require Export BV.
 Require Export Adder.
 Require Import Gt.
@@ -168,7 +168,7 @@ auto with v62. Qed.
 Lemma length_R1 : forall t : nat, t <= size -> lengthbv (R1 t) = size.
 simple induction t. auto with v62.
 intros. rewrite R1_eq2. rewrite (length_app bool).
-unfold Mux in |- *. rewrite (F_If BV nat). simpl in |- *. rewrite If_eq.
+unfold Mux in |- *. rewrite (F_If BV nat _ _ _ (@length bool)). simpl in |- *. rewrite If_eq.
 rewrite highs_is_strip. rewrite (length_strip bool). unfold lengthbv in H.
 rewrite H. symmetry  in |- *. rewrite plus_comm. apply le_plus_minus. auto with v62.
 apply le_Sn_le; auto with v62.
@@ -180,11 +180,13 @@ Lemma length_R2 : forall t : nat, t <= size -> lengthbv (R2 t) = size.
 simple induction t. simpl in |- *.
 unfold lengthbv, BV_null in |- *. rewrite (length_list_const bool). trivial with v62.
 unfold lengthbv in |- *. intros. rewrite R2_eq2.
-rewrite (length_app bool). rewrite (F_If BV BV). rewrite (F_If BV nat).
+rewrite (length_app bool). unfold Mux, consbv. 
+rewrite (F_If BV BV _ _ _ highs). 
+rewrite (F_If BV nat _ _ _ (@length bool)).
 rewrite highs_is_strip. rewrite (length_strip bool).
 rewrite length_BV_full_adder_sum. unfold lengthbv in |- *.
 rewrite H. rewrite highs_is_strip. rewrite (length_strip bool).
-rewrite H. rewrite If_eq. rewrite (F_If BV nat). simpl in |- *.
+rewrite H. rewrite If_eq. rewrite (F_If BV nat _ _ _ (@length bool)). simpl in |- *.
 rewrite If_eq. symmetry  in |- *. rewrite plus_comm. apply le_plus_minus. auto with v62.
 auto with v62. rewrite H. auto with v62.
 apply le_Sn_le; exact H0. apply le_Sn_le; exact H0.
