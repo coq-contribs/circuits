@@ -55,31 +55,31 @@ Fixpoint IsNull (v : BV) : bool :=
   end.
 
 Lemma IsNull_nil : IsNull nilbv = true.
-auto with v62.
+auto.
 Qed.
 
 Lemma IsNull_false :
  forall (a : bool) (v : BV), IsNull (consbv a v) = true -> a = false.
-simple induction a. simpl in |- *. auto with v62. trivial with v62.
+simple induction a. simpl in |- *. auto. trivial.
 Qed.
 
 Lemma IsNull_cons :
  forall (a : bool) (v : BV), IsNull (consbv a v) = true -> IsNull v = true.
 simple induction a. simpl in |- *. intros. absurd (false = true).
-auto with v62. exact H. intros v. auto with v62.
+auto. exact H. intros v. auto.
 Qed.
 
 Lemma IsNull_null : forall n : nat, IsNull (BV_null n) = true.
-simple induction n. simpl in |- *. trivial with v62.
+simple induction n. simpl in |- *. trivial.
 intros. simpl in |- *. exact H.
 Qed.
 
 Lemma IsNull_BV_null :
  forall v : BV, IsNull v = true -> v = BV_null (lengthbv v).
-simple induction v. simpl in |- *. unfold BV_null in |- *. auto with v62.
+simple induction v. simpl in |- *. unfold BV_null in |- *. auto.
 intros a l H. intro.
 change (a :: l = false :: BV_null (lengthbv l)) in |- *.
-rewrite <- H. generalize H0. replace a with false. trivial with v62.
+rewrite <- H. generalize H0. replace a with false. trivial.
 symmetry  in |- *. apply IsNull_false with (v := l). exact H0.
 apply IsNull_cons with (a := a). exact H0.
 Qed.

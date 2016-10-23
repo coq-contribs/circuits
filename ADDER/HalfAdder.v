@@ -44,29 +44,29 @@ Definition half_adder_carry (a b : bool) := a && b.
 
 Lemma half_adder_sum_sym :
  forall a b : bool, half_adder_sum a b = half_adder_sum b a.
-simple induction a; simple induction b; auto with v62.
+simple induction a; simple induction b; auto.
 Qed. Hint Resolve half_adder_sum_sym.
 
 Lemma half_adder_carry_sym :
  forall a b : bool, half_adder_carry a b = half_adder_carry b a.
-simple induction a; simple induction b; auto with v62.
+simple induction a; simple induction b; auto.
 Qed. Hint Resolve half_adder_carry_sym.
 
 Lemma half_adder_sum_false : forall a : bool, half_adder_sum a false = a.
-simple induction a; auto with v62.
+simple induction a; auto.
 Qed. Hint Resolve half_adder_sum_false.
 
 Lemma half_adder_carry_false :
  forall a : bool, half_adder_carry a false = false.
-simple induction a; auto with v62.
+simple induction a; auto.
 Qed. Hint Resolve half_adder_carry_false.
 
 Lemma half_adder_sum_true : forall a : bool, half_adder_sum a true = negb a.
-auto with v62.
+auto.
 Qed. Hint Resolve half_adder_sum_true.
 
 Lemma half_adder_carry_true : forall a : bool, half_adder_carry a true = a.
-simple induction a; auto with v62.
+simple induction a; auto.
 Qed. Hint Resolve half_adder_carry_true.
 
 (****************************************************************)
@@ -76,5 +76,5 @@ Theorem half_adder_ok :
  bool_to_nat (half_adder_sum a b) +
  (bool_to_nat (half_adder_carry a b) + bool_to_nat (half_adder_carry a b)) =
  bool_to_nat a + bool_to_nat b.
-simple induction a; simple induction b; auto with v62.
+simple induction a; simple induction b; auto.
 Qed.

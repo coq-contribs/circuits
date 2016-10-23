@@ -34,29 +34,29 @@ Require Export Bool.
 
 (****************************************************************)
 Lemma neg_eq : forall a b : bool, negb a = negb b -> a = b.
-simple induction a; simple induction b; auto with v62.
+simple induction a; simple induction b; auto.
 Qed. Hint Resolve neg_eq.
 
 Lemma false_to_true : false = negb true.
-auto with v62.
+auto.
 Qed.
 
 Lemma true_to_false : true = negb false.
-auto with v62.
+auto.
 Qed.
 
 Definition xorb (b1 b2 : bool) : bool := b1 && negb b2 || negb b1 && b2.
 
 Lemma xorb_b_b : forall b : bool, xorb b b = false.
-simple induction b; auto with v62.
+simple induction b; auto.
 Qed. Hint Resolve xorb_b_b.
 
 Lemma xorb_b_false : forall b : bool, xorb b false = b.
-simple induction b; auto with v62.
+simple induction b; auto.
 Qed. Hint Resolve xorb_b_false.
 
 Lemma xorb_b_true : forall b : bool, xorb b true = negb b.
-simple induction b; auto with v62.
+simple induction b; auto.
 Qed. Hint Resolve xorb_b_true.
 
 (****************************************************************)
@@ -68,13 +68,13 @@ Definition bool_to_nat (b : bool) :=
 
 Lemma bool_to_nat_all :
  forall b : bool, bool_to_nat b = 0 \/ bool_to_nat b = 1.
-simple induction b; auto with v62.
+simple induction b; auto.
 Qed. Hint Resolve bool_to_nat_all.
 
 (*
 Lemma bool_to_nat_negb : (b:bool)
 	(bool_to_nat (negb b))=(minus (S O) (bool_to_nat b)).
-Induction b;Auto with v62.
+Induction b;Auto.
 Qed. Hints Resolve bool_to_nat_negb.
 *)
 
@@ -91,35 +91,35 @@ Definition If (T : Set) (b : bool) (x y : T) :=
 
 Lemma If_neg :
  forall (T : Set) (b : bool) (x y : T), If T (negb b) x y = If T b y x.
-simple induction b; simpl in |- *; trivial with v62.
+simple induction b; simpl in |- *; trivial.
 Qed. Hint Resolve If_neg.
 
 Lemma If_eq : forall (T : Set) (b : bool) (x : T), If T b x x = x.
-simple induction b; simpl in |- *; trivial with v62.
+simple induction b; simpl in |- *; trivial.
 Qed. Hint Resolve If_eq.
 
 Lemma IfIf :
  forall (T : Set) (b1 b2 : bool) (x x' y y' : T),
  If T b1 (If T b2 x y) (If T b2 x' y') =
  If T b2 (If T b1 x x') (If T b1 y y').
-simple induction b2; auto with v62.
+simple induction b2; auto.
 Qed.
 
 Lemma If_cond_true :
  forall (T : Set) (a : bool) (x y : T), x <> y -> If T a x y = x -> a = true.
-unfold not in |- *. simple induction a; auto with v62. 
+unfold not in |- *. simple induction a; auto. 
 Qed.
 
 Lemma If_cond_false :
  forall (T : Set) (a : bool) (x y : T), x <> y -> If T a x y = y -> a = false.
-unfold not in |- *. simple induction a. simpl in |- *. intros. absurd (x = y). auto with v62.
-exact H0. auto with v62.
+unfold not in |- *. simple induction a. simpl in |- *. intros. absurd (x = y). auto.
+exact H0. auto.
 Qed.
 
 Lemma F_If :
  forall (T T' : Set) (a : bool) (x y : T) (F : T -> T'),
  F (If T a x y) = If T' a (F x) (F y).
-simple induction a; auto with v62.
+simple induction a; auto.
 Qed. Hint Resolve F_If.
 
 

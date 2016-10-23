@@ -43,8 +43,8 @@ Lemma cx_cx' :
  cx t di_init cx_init al_init mem_init =
  cx' t di_init cx_init al_init mem_init DC_a DC_d.
 unfold cx' in |- *. unfold compo' in |- *. unfold cx3 in |- *. unfold cx_2_1, compo_2_1 in |- *.
-unfold di1, cx1, al1, mem1, ad1, da1 in |- *. simple induction t. auto with v62.
-intros. rewrite cx_t. rewrite cx2_t. rewrite H. trivial with v62.
+unfold di1, cx1, al1, mem1, ad1, da1 in |- *. simple induction t. auto.
+intros. rewrite cx_t. rewrite cx2_t. rewrite H. trivial.
 Qed.
 
 Lemma di_di' :
@@ -53,13 +53,13 @@ Lemma di_di' :
  di' t di_init cx_init al_init mem_init DC_a DC_d.
 unfold di' in |- *. unfold compo' in |- *.
 unfold di3 in |- *. unfold ad_2_1, compo_2_1 in |- *. unfold di1, cx1, al1, mem1, ad1, da1 in |- *.
-simple induction t. auto with v62.
+simple induction t. auto.
 intros. rewrite di_t. rewrite ad2_t. rewrite H.
 replace (cx n di_init cx_init al_init mem_init) with
  (cx' n di_init cx_init al_init mem_init DC_a DC_d).
 unfold cx', compo' in |- *. unfold cx3 in |- *. unfold cx_2_1, compo_2_1 in |- *.
 unfold di1, cx1, al1, mem1, ad1, da1 in |- *.
-trivial with v62. rewrite cx_cx'. trivial with v62.
+trivial. rewrite cx_cx'. trivial.
 Qed.
 
 
@@ -76,7 +76,7 @@ unfold al_2_1 in |- *.
 unfold compo_2_1 in |- *.
 rewrite al2_constant.
 unfold al1 in |- *.
-trivial with v62.
+trivial.
 Qed.
 
 Lemma mem_mem' :
@@ -88,7 +88,7 @@ unfold mem3 in |- *.
 unfold mem_2_1, compo_2_1 in |- *.
 unfold di1, cx1, al1, mem1, ad1, da1 in |- *.
 simple induction t.
-auto with v62.
+auto.
 
 intros.
 rewrite mem2_t.
@@ -106,13 +106,13 @@ rewrite (cx_cx' n).
 unfold cx', compo', cx3 in |- *.
 unfold cx_2_1, compo_2_1 in |- *.
 unfold di1, cx1, al1, mem1, ad1, da1 in |- *.
-trivial with v62.
+trivial.
 
 rewrite da2_constant.
-trivial with v62.
+trivial.
 
 rewrite al_constant.
-trivial with v62.
+trivial.
 Qed.
 
 Theorem Fill_ok :

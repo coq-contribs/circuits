@@ -38,15 +38,15 @@ Section Lists_compl.
 Variable A B : Set.
 
 Lemma length_eq1 : length (nil:list A) = 0.
-auto with v62. Qed.
+auto with arith. Qed.
 Lemma length_eq2 :
  forall (x : A) (l : list A), length (x :: l) = S (length l).
-auto with v62. Qed.
+auto with arith. Qed.
 
 Lemma app_eq1 : forall l' : list A, nil ++ l' = l'. 
-auto with v62. Qed.
+auto with arith. Qed.
 Lemma app_eq2 : forall (x : A) (l l' : list A), (x :: l) ++ l' = x :: l ++ l'.
-auto with v62. Qed.
+auto with arith. Qed.
 
 Inductive len : list A -> nat -> Prop :=
  (************)
@@ -70,7 +70,7 @@ Qed.
 Lemma app_v_nil : forall v : list A, v ++ nil = v.
 (**************)
 intro.
-rewrite <- app_nil_end; trivial with v62.
+rewrite <- app_nil_end; trivial with arith.
 Qed. Hint Resolve app_v_nil.
 
 Lemma app_v_nil_idem : forall v v' : list A, v = v' -> v ++ nil = v'.
@@ -80,14 +80,14 @@ Qed.
 
 Lemma app_v_nil_inv : forall v1 v2 : list A, v1 ++ v2 = v1 -> v2 = nil.
 (******************)
-simple induction v1. simpl in |- *. trivial with v62.
+simple induction v1. simpl in |- *. trivial with arith.
 intros. generalize H0. rewrite app_eq2. intros. injection H1. intro. apply H. exact H2.
 Qed.
 
 Lemma app_v_nil_sym : forall v1 v2 : list A, v1 = nil -> v1 ++ v2 = v2 ++ v1.
 (******************)
-simple induction v2. intro. rewrite H. trivial with v62.
-intros. rewrite H0. auto with v62.
+simple induction v2. intro. rewrite H. trivial with arith.
+intros. rewrite H0. auto with arith.
 Qed.
 
 Definition app_assoc_r := app_ass.
@@ -105,7 +105,7 @@ Qed.
 
 Lemma len_nil_inv : forall l : nat, len nil l -> l = 0.
 (****************)
-intros; inversion H; trivial with v62.
+intros; inversion H; trivial with arith.
 Qed.
 
 Lemma not_len_nil_Sn : forall l : nat, ~ len nil (S l).
@@ -125,18 +125,18 @@ Qed.
 
 Lemma len_length : forall v : list A, len v (length v).
 (***************)
-simple induction v. auto with v62.
+simple induction v. auto with arith.
 intros. rewrite length_eq2. apply len_cons. exact H.
 Qed. Hint Resolve len_length.
 
 Lemma length_eq : forall v1 v2 : list A, v1 = v2 -> length v1 = length v2.
 (**************)
-intros. rewrite H. trivial with v62.
+intros. rewrite H. trivial with arith.
 Qed.
 
 Lemma not_nil : forall v : list A, length v <> 0 -> v <> nil.
 (************)
-simple induction v. simpl in |- *; intro. absurd (0 <> 0). unfold not in |- *; auto with v62. exact H.
+simple induction v. simpl in |- *; intro. absurd (0 <> 0). unfold not in |- *; auto with arith. exact H.
 simpl in |- *. intros. discriminate.
 Qed.
 
@@ -144,17 +144,17 @@ Lemma length_app :
  forall v1 v2 : list A,
  (***************)
  length (v1 ++ v2) = length v1 + length v2.
-simple induction v1. simpl in |- *. trivial with v62.
-intros. simpl in |- *. rewrite H. trivial with v62.
+simple induction v1. simpl in |- *. trivial with arith.
+intros. simpl in |- *. rewrite H. trivial with arith.
 Qed.
 
 Lemma v_not_nil_length :
  forall v : list A,
  (*********************)
  v <> nil -> 1 <= length v.
-simple induction v. intro. absurd (nil <> nil :>list A). unfold not in |- *. auto with v62.
+simple induction v. intro. absurd (nil <> nil :>list A). unfold not in |- *. auto with arith.
 exact H.
-intros. simpl in |- *. apply le_n_S. auto with v62.
+intros. simpl in |- *. apply le_n_S. auto with arith.
 Qed.
 
 Lemma le_SO_length_v :
@@ -177,20 +177,20 @@ Fixpoint list_const (n : nat) : A -> list A :=
  end.
 
 Lemma list_const_eq1 : forall x : A, list_const 0 x = nil.
-auto with v62. Qed.
+auto with arith. Qed.
 Lemma list_const_eq2 :
  forall (n' : nat) (x : A), list_const (S n') x = x :: list_const n' x.
-auto with v62. Qed.
+auto with arith. Qed.
 
 Lemma len_list_const : forall (n : nat) (x : A), len (list_const n x) n.
 (*******************)
-simple induction n. auto with v62. intros. simpl in |- *. auto with v62.
+simple induction n. auto with arith. intros. simpl in |- *. auto with arith.
 Qed. Hint Resolve len_list_const.
 
 Lemma length_list_const :
  forall (n : nat) (x : A), length (list_const n x) = n.
 (**********************)
-simple induction n. auto with v62. intros. simpl in |- *. auto with v62.
+simple induction n. auto with arith. intros. simpl in |- *. auto with arith.
 Qed. Hint Resolve length_list_const.
 
 (****************************************************************)
@@ -205,31 +205,31 @@ Fixpoint rev (l : list A) : list A :=
  end.
 
 Lemma rev_eq1 : rev nil = nil.
-auto with v62. Qed.
+auto with arith. Qed.
 Lemma rev_eq2 :
  forall (b : A) (l' : list A), rev (b :: l') = rev l' ++ b :: nil.
-auto with v62. Qed.
+auto with arith. Qed.
 
 
 Lemma rev_eq : forall l n : list A, l = n -> rev l = rev n.
 (***********)
-intros; replace l with n; auto with v62.
+intros; replace l with n; auto with arith.
 Qed.
 
 Lemma rev_app : forall l n : list A, rev (l ++ n) = rev n ++ rev l.
 (************)
-simple induction l; auto with v62. intros. simpl in |- *. rewrite H. apply app_assoc_r.
+simple induction l; auto with arith. intros. simpl in |- *. rewrite H. apply app_assoc_r.
 Qed.
 
 Lemma rev_rev : forall l : list A, rev (rev l) = l.
 (************)
-simple induction l; auto with v62. intros; simpl in |- *. rewrite rev_app. rewrite H. auto with v62.
+simple induction l; auto with arith. intros; simpl in |- *. rewrite rev_app. rewrite H. auto with arith.
 Qed.
 
 Lemma length_rev : forall l : list A, length (rev l) = length l.
 (***************)
-simple induction l; auto with v62. intros. simpl in |- *.
-rewrite length_app. simpl in |- *. rewrite plus_n_SO. rewrite H. trivial with v62.
+simple induction l; auto with arith. intros. simpl in |- *.
+rewrite length_app. simpl in |- *. rewrite plus_n_SO. rewrite H. trivial with arith.
 Qed.
 
 (****************************************************************)
@@ -247,8 +247,8 @@ Fixpoint map (l : list A) : (A -> B) -> list B :=
 
 Lemma length_map :
  forall (l : list A) (f : A -> B), length (map l f) = length l.
-simple induction l. auto with v62.
-intros. simpl in |- *. rewrite H. trivial with v62.
+simple induction l. auto with arith.
+intros. simpl in |- *. rewrite H. trivial with arith.
 Qed.
 
 (****************************************************************)
@@ -277,7 +277,7 @@ Qed.
 Axiom eq_list_dec : forall l m : list A, {l = m} + {l <> m}.
 
 (*
-(Induction l;Induction m). Auto with v62.
+(Induction l;Induction m). Auto with arith.
 (Right;Discriminate).(Right;Discriminate). Intros.
 *)
 
