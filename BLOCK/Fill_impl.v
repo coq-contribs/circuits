@@ -144,13 +144,13 @@ Lemma di2_t :
  | true => di2 t di0 cx0 al0 mem0 ad0 da0
  | false => di2 t di0 cx0 al0 mem0 ad0 da0
  end.
-auto with v62.
+auto.
 Qed.
 
 Lemma di2_constant :
  forall (t : nat) (di0 cx0 al0 : BV) (mem0 : Memo) (ad0 da0 : BV),
  di2 t di0 cx0 al0 mem0 ad0 da0 = di0.
-simple induction t. simpl in |- *; trivial with v62.
+simple induction t. simpl in |- *; trivial.
 intros. rewrite di2_t. elim (IsNull (cx2 n di0 cx0 al0 mem0 ad0 da0)). apply H.
 apply H.
 Qed.
@@ -162,7 +162,7 @@ Lemma cx2_t :
  | true => cx2 t di0 cx0 al0 mem0 ad0 da0
  | false => BV_decrement (cx2 t di0 cx0 al0 mem0 ad0 da0)
  end.
-auto with v62.
+auto.
 Qed.
 
 Lemma al2_t :
@@ -172,13 +172,13 @@ Lemma al2_t :
  | true => al2 t di0 cx0 al0 mem0 ad0 da0
  | false => al2 t di0 cx0 al0 mem0 ad0 da0
  end.
-auto with v62.
+auto.
 Qed.
 
 Lemma al2_constant :
  forall (t : nat) (di0 cx0 al0 : BV) (mem0 : Memo) (ad0 da0 : BV),
  al2 t di0 cx0 al0 mem0 ad0 da0 = al0.
-simple induction t. simpl in |- *; trivial with v62.
+simple induction t. simpl in |- *; trivial.
 intros. rewrite al2_t. elim (IsNull (cx2 n di0 cx0 al0 mem0 ad0 da0)). apply H.
 apply H.
 Qed.
@@ -193,7 +193,7 @@ Lemma mem2_t :
        (BV_to_nat (ad2 t di0 cx0 al0 mem0 ad0 da0))
        (da2 t di0 cx0 al0 mem0 ad0 da0)
  end.
-auto with v62.
+auto.
 Qed.
 
 Lemma ad2_t :
@@ -203,7 +203,7 @@ Lemma ad2_t :
  | true => ad2 t di0 cx0 al0 mem0 ad0 da0
  | false => BV_increment (ad2 t di0 cx0 al0 mem0 ad0 da0)
  end.
-auto with v62.
+auto.
 Qed.
 
 Lemma da2_t :
@@ -213,13 +213,13 @@ Lemma da2_t :
  | true => da2 t di0 cx0 al0 mem0 ad0 da0
  | false => da2 t di0 cx0 al0 mem0 ad0 da0
  end.
-auto with v62.
+auto.
 Qed.
 
 Lemma da2_constant :
  forall (t : nat) (di0 cx0 al0 : BV) (mem0 : Memo) (ad0 da0 : BV),
  da2 t di0 cx0 al0 mem0 ad0 da0 = da0.
-simple induction t. simpl in |- *; trivial with v62.
+simple induction t. simpl in |- *; trivial.
 intros. rewrite da2_t. elim (IsNull (cx2 n di0 cx0 al0 mem0 ad0 da0)). apply H.
 apply H.
 Qed.

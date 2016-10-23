@@ -80,7 +80,7 @@ Definition BV_full_adder_sum :=
 Lemma BV_full_adder_sum_eq1 :
  forall b : bool, BV_full_adder_sum nil nil b = nilbv.
 Proof.
- auto with v62.
+ auto.
 Qed.
 
 Lemma BV_full_adder_sum_eq2 :
@@ -89,7 +89,7 @@ Lemma BV_full_adder_sum_eq2 :
  consbv (half_adder_sum vh b)
    (BV_full_adder_sum nil vt (half_adder_carry vh b)).
 Proof.
- auto with v62.
+ auto.
 Qed.
 
 Lemma BV_full_adder_sum_eq3 :
@@ -98,7 +98,7 @@ Lemma BV_full_adder_sum_eq3 :
  consbv (half_adder_sum vh b)
    (BV_full_adder_sum vt nil (half_adder_carry vh b)).
 Proof.
- auto with v62.
+ auto.
 Qed.
 
 Lemma BV_full_adder_sum_eq4 :
@@ -107,7 +107,7 @@ Lemma BV_full_adder_sum_eq4 :
  consbv (full_adder_sum vh wh b)
    (BV_full_adder_sum vt wt (full_adder_carry vh wh b)).
 Proof.
- auto with v62.
+ auto.
 Qed.
 
 
@@ -146,7 +146,7 @@ Lemma BV_full_adder_carry_eq1 :
  forall b : bool, BV_full_adder_carry nil nil b = b.
 
 Proof.
- auto with v62.
+ auto.
 Qed.
 
 Lemma BV_full_adder_carry_eq2 :
@@ -154,7 +154,7 @@ Lemma BV_full_adder_carry_eq2 :
  BV_full_adder_carry nil (vh :: vt) b =
  BV_full_adder_carry nil vt (half_adder_carry vh b).
 Proof.
- auto with v62.
+ auto.
 Qed.
 
 
@@ -164,7 +164,7 @@ Lemma BV_full_adder_carry_eq3 :
  BV_full_adder_carry vt nil (half_adder_carry vh b).
 
 Proof.
- auto with v62.
+ auto.
 Qed.
 
 Lemma BV_full_adder_carry_eq4 :
@@ -173,7 +173,7 @@ Lemma BV_full_adder_carry_eq4 :
  BV_full_adder_carry vt wt (full_adder_carry vh wh b).
 
 Proof.
- auto with v62.
+ auto.
 Qed.
 
 
@@ -188,49 +188,49 @@ Hint Unfold BV_full_adder.
 
 Lemma BV_full_adder_sum_v_nil_false :
  forall v : BV, BV_full_adder_sum v nilbv false = v.
-unfold nilbv in |- *. simple induction v. trivial with v62. intros.
+unfold nilbv in |- *. simple induction v. trivial. intros.
 rewrite BV_full_adder_sum_eq3. rewrite half_adder_carry_false.
-rewrite half_adder_sum_false. rewrite H; auto with v62.
+rewrite half_adder_sum_false. rewrite H; auto.
 Qed. Hint Resolve BV_full_adder_sum_v_nil_false.
 
 Lemma BV_full_adder_carry_v_nil_false :
  forall v : BV, BV_full_adder_carry v nilbv false = false.
 unfold nilbv in |- *.
-simple induction v. trivial with v62. intros.
+simple induction v. trivial. intros.
 rewrite BV_full_adder_carry_eq3. rewrite half_adder_carry_false.
-trivial with v62.
+trivial.
 Qed. Hint Resolve BV_full_adder_carry_v_nil_false.
 
 Lemma BV_full_adder_sum_sym :
  forall (v w : BV) (cin : bool),
  BV_full_adder_sum v w cin = BV_full_adder_sum w v cin.
-simple induction v. simple induction w. auto with v62. intros.
+simple induction v. simple induction w. auto. intros.
 rewrite BV_full_adder_sum_eq2. rewrite BV_full_adder_sum_eq3.
-rewrite H. auto with v62. simple induction w. intro.
+rewrite H. auto. simple induction w. intro.
 rewrite BV_full_adder_sum_eq2. rewrite BV_full_adder_sum_eq3. rewrite H.
-auto with v62. intros. repeat rewrite BV_full_adder_sum_eq4. rewrite H.
-do 2 rewrite full_adder_carry_sym1. do 2 rewrite full_adder_sum_sym1. auto with v62.
+auto. intros. repeat rewrite BV_full_adder_sum_eq4. rewrite H.
+do 2 rewrite full_adder_carry_sym1. do 2 rewrite full_adder_sum_sym1. auto.
 Qed.
 				       
 Lemma length_BV_full_adder_sum :
  forall (v w : BV) (cin : bool),
  lengthbv v = lengthbv w -> lengthbv (BV_full_adder_sum v w cin) = lengthbv v.
-unfold lengthbv in |- *. simple induction v. simple induction w. intros. case cin. simpl in |- *. trivial with v62.
-simpl in |- *. trivial with v62.
+unfold lengthbv in |- *. simple induction v. simple induction w. intros. case cin. simpl in |- *. trivial.
+simpl in |- *. trivial.
 intros. absurd (length (nil:list bool) = length (a :: l)).
 simpl in |- *. discriminate. exact H0. simple induction w. simpl in |- *. intros. discriminate H0.
-intros. simpl in |- *. rewrite H. trivial with v62. generalize H1. simpl in |- *. auto with v62.
+intros. simpl in |- *. rewrite H. trivial. generalize H1. simpl in |- *. auto.
 Qed.
 
 Lemma BV_full_adder_carry_sym :
  forall (v w : BV) (cin : bool),
  BV_full_adder_carry v w cin = BV_full_adder_carry w v cin.
-simple induction v. simple induction w. auto with v62. intros.
+simple induction v. simple induction w. auto. intros.
 rewrite BV_full_adder_carry_eq2. rewrite BV_full_adder_carry_eq3.
-rewrite H; auto with v62. simple induction w. intros. rewrite BV_full_adder_carry_eq2.
+rewrite H; auto. simple induction w. intros. rewrite BV_full_adder_carry_eq2.
 rewrite BV_full_adder_carry_eq3.
-rewrite H. auto with v62. intros. do 2 rewrite BV_full_adder_carry_eq4.
-rewrite H. rewrite full_adder_carry_sym1. auto with v62.
+rewrite H. auto. intros. do 2 rewrite BV_full_adder_carry_eq4.
+rewrite H. rewrite full_adder_carry_sym1. auto.
 Qed.
 
 Lemma BV_full_adder_sym :
@@ -238,5 +238,5 @@ Lemma BV_full_adder_sym :
  BV_full_adder v w cin = BV_full_adder w v cin.
 unfold BV_full_adder in |- *.
 intros.
-rewrite BV_full_adder_sum_sym. rewrite BV_full_adder_carry_sym. auto with v62.
+rewrite BV_full_adder_sum_sym. rewrite BV_full_adder_carry_sym. auto.
 Qed.

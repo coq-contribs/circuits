@@ -47,84 +47,84 @@ Definition full_adder_carry (a b c : bool) :=
 
 Lemma full_adder_sum_sym1 :
  forall a b c : bool, full_adder_sum a b c = full_adder_sum b a c.
-simple induction a; simple induction b; auto with v62.
+simple induction a; simple induction b; auto.
 Qed. Hint Resolve full_adder_sum_sym1.
 
 Lemma full_adder_sum_sym2 :
  forall a b c : bool, full_adder_sum a b c = full_adder_sum a c b.
 simple induction b.
 simple induction c.
-auto with v62.
+auto.
 unfold full_adder_sum in |- *.
 rewrite half_adder_sum_false.
 rewrite half_adder_sum_false.
-auto with v62.
+auto.
 unfold full_adder_sum in |- *.
 rewrite half_adder_sum_false.
 intro.
-auto with v62.
+auto.
 Qed. Hint Resolve full_adder_sum_sym2.
 
 Lemma full_adder_sum_false :
  forall a : bool, full_adder_sum a false false = a.
-simple induction a; auto with v62.
+simple induction a; auto.
 Qed. Hint Resolve full_adder_sum_false.
 
 Lemma full_adder_sum_true : forall a : bool, full_adder_sum a true true = a.
-simple induction a; auto with v62.
+simple induction a; auto.
 Qed. Hint Resolve full_adder_sum_true.
 
 Lemma full_adder_carry_sym1 :
  forall a b c : bool, full_adder_carry a b c = full_adder_carry b a c.
-simple induction a; simple induction b; auto with v62.
+simple induction a; simple induction b; auto.
 Qed. Hint Resolve full_adder_carry_sym1.
 
 Lemma full_adder_carry_sym2 :
  forall a b c : bool, full_adder_carry a b c = full_adder_carry a c b.
 simple induction b.
 simple induction c.
-auto with v62.
+auto.
 unfold full_adder_carry in |- *.
 rewrite half_adder_sum_false.
 rewrite half_adder_carry_false.
 rewrite half_adder_carry_false.
 simpl in |- *.
-elim (half_adder_carry a true); auto with v62.
+elim (half_adder_carry a true); auto.
 intros.
 unfold full_adder_carry in |- *.
 rewrite half_adder_carry_false.
 rewrite half_adder_sum_false.
 rewrite half_adder_carry_false.
 simpl in |- *.
-elim (half_adder_carry a c); auto with v62.
+elim (half_adder_carry a c); auto.
 Qed. Hint Resolve full_adder_carry_sym2.
 
 Lemma full_adder_carry_false :
  forall a : bool, full_adder_carry a false false = false.
-simple induction a; auto with v62.
+simple induction a; auto.
 Qed. Hint Resolve full_adder_carry_false.
 
 Lemma full_adder_carry_true :
  forall a : bool, full_adder_carry a true true = true.
 simple induction a.
 unfold full_adder_carry in |- *.
-auto with v62.
+auto.
 unfold full_adder_carry in |- *.
-auto with v62.
+auto.
 Qed. Hint Resolve full_adder_carry_true.
 
 Lemma full_adder_carry_true_false :
  forall a : bool, full_adder_carry a true false = a.
-simple induction a; auto with v62.
+simple induction a; auto.
 Qed. Hint Resolve full_adder_carry_true_false.
 
 Lemma full_adder_carry_neg :
  forall a b : bool, full_adder_carry a (negb a) b = b.
 simple induction a; simple induction b; simpl in |- *.
-rewrite full_adder_carry_sym1. rewrite full_adder_carry_true. trivial with v62.
-rewrite full_adder_carry_false. trivial with v62.
-rewrite full_adder_carry_true. trivial with v62.
-rewrite full_adder_carry_sym1. rewrite full_adder_carry_false. trivial with v62.
+rewrite full_adder_carry_sym1. rewrite full_adder_carry_true. trivial.
+rewrite full_adder_carry_false. trivial.
+rewrite full_adder_carry_true. trivial.
+rewrite full_adder_carry_sym1. rewrite full_adder_carry_false. trivial.
 Qed.
 
 (****************************************************************)
@@ -134,5 +134,5 @@ Theorem full_adder_ok :
  bool_to_nat (full_adder_sum a b c) +
  (bool_to_nat (full_adder_carry a b c) + bool_to_nat (full_adder_carry a b c)) =
  bool_to_nat a + bool_to_nat b + bool_to_nat c.
-simple induction a; simple induction b; simple induction c; auto with v62.
+simple induction a; simple induction b; simple induction c; auto.
 Qed.

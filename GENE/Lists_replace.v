@@ -58,10 +58,10 @@ Lemma replace_ok :
 simple induction l. simpl in |- *. intros. absurd (i < 0). apply lt_n_O.
 exact H.
 simple induction i. intros. simpl in |- *.
-unfold elemlist in |- *. rewrite strip_O. simpl in |- *. rewrite trunc_O; trivial with v62.
+unfold elemlist in |- *. rewrite strip_O. simpl in |- *. rewrite trunc_O; trivial with arith.
 intros. simpl in |- *. clear H0. unfold elemlist in |- *. rewrite strip_cons_S.
 rewrite elemlist_inv.
-apply H. apply lt_S_n. generalize H1. simpl in |- *. trivial with v62.
+apply H. apply lt_S_n. generalize H1. simpl in |- *. trivial with arith.
 Qed.
 
 (* On montre que tous les elements, sauf celui que l'on remplace,
@@ -75,25 +75,25 @@ simple induction l. simpl in |- *. intros. absurd (i < 0). apply lt_n_O.
 exact H.
 simple induction i.
 intros. unfold elemlist in |- *. rewrite elemlist_inv. rewrite elemlist_inv.
-generalize H1 H2. elim p. intros. absurd (0 <> 0). unfold not in |- *; auto with v62.
+generalize H1 H2. elim p. intros. absurd (0 <> 0). unfold not in |- *; auto with arith.
 exact H4.
-intros. simpl in |- *. rewrite elemlist_cons_O. rewrite elemlist_cons_O. trivial with v62.
+intros. simpl in |- *. rewrite elemlist_cons_O. rewrite elemlist_cons_O. trivial with arith.
 simple induction p. intros. simpl in |- *.
-rewrite elemlist_cons_S. rewrite elemlist_cons_S. trivial with v62.
+rewrite elemlist_cons_S. rewrite elemlist_cons_S. trivial with arith.
 intros. clear H1. simpl in |- *. do 2 rewrite elemlist_cons_S.
-clear H0. apply H. apply lt_S_n. generalize H2; simpl in |- *; trivial with v62.
-apply lt_S_n. generalize H3; simpl in |- *; trivial with v62.
-generalize H4. red in |- *. auto with v62.
+clear H0. apply H. apply lt_S_n. generalize H2; simpl in |- *; trivial with arith.
+apply lt_S_n. generalize H3; simpl in |- *; trivial with arith.
+generalize H4. red in |- *. auto with arith.
 Qed.
 
 Lemma length_replace :
  forall (l : list A) (p : nat) (x : A),
  (*******************)
  p < length l -> length (replace l p x) = length l.
-simple induction l. simpl in |- *. try trivial with v62.
-simple induction p. intros. simpl in |- *. apply eq_S. try trivial with v62.
-intros. clear H0. simpl in |- *. rewrite H. try trivial with v62.
-auto with v62.
+simple induction l. simpl in |- *. try trivial with arith.
+simple induction p. intros. simpl in |- *. apply eq_S. try trivial with arith.
+intros. clear H0. simpl in |- *. rewrite H. try trivial with arith.
+auto with arith.
 Qed.
 
 Lemma replace_sym :
@@ -102,25 +102,25 @@ Lemma replace_sym :
  p < length l ->
  p' < length l ->
  p <> p' -> replace (replace l p' x') p x = replace (replace l p x) p' x'.
-simple induction l. simpl in |- *. trivial with v62.
+simple induction l. simpl in |- *. trivial with arith.
 simple induction p. intros. generalize H1 H2.
-elim p'. intros. absurd (0 <> 0); unfold not in |- *; auto with v62.
-intros. simpl in |- *. trivial with v62.
-simple induction p'. intros. simpl in |- *. trivial with v62.
-intros. clear H1. clear H0. simpl in |- *. rewrite H. trivial with v62.
-auto with v62.
-auto with v62.
-red in |- *. auto with v62.
+elim p'. intros. absurd (0 <> 0); unfold not in |- *; auto with arith.
+intros. simpl in |- *. trivial with arith.
+simple induction p'. intros. simpl in |- *. trivial with arith.
+intros. clear H1. clear H0. simpl in |- *. rewrite H. trivial with arith.
+auto with arith.
+auto with arith.
+red in |- *. auto with arith.
 Qed.
 
 Lemma replace_newer :
  forall (l : list A) (p : nat) (x x' : A),
  (*****************)
  p < length l -> replace (replace l p x) p x' = replace l p x'.
-simple induction l. simpl in |- *. trivial with v62.
-simple induction p. simpl in |- *. intros. trivial with v62.
-intros. clear H0. simpl in |- *. rewrite H. trivial with v62.
-auto with v62.
+simple induction l. simpl in |- *. trivial with arith.
+simple induction p. simpl in |- *. intros. trivial with arith.
+intros. clear H0. simpl in |- *. rewrite H. trivial with arith.
+auto with arith.
 Qed.
 
 End Lists_replace.

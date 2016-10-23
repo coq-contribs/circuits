@@ -48,7 +48,7 @@ Lemma Invariant_t_O :
 intros. simpl in |- *.
 rewrite BV_to_nat_app2. rewrite (trunc_O bool). rewrite <- length_V1_size.
 rewrite (strip_all bool). rewrite length_V1_size.
-simpl in |- *. elim plus_n_O. elim mult_n_O. rewrite BV_null_nat. trivial with v62.
+simpl in |- *. elim plus_n_O. elim mult_n_O. rewrite BV_null_nat. trivial with arith.
 Qed.
 
 (****************************************************************)
@@ -110,18 +110,18 @@ rewrite plus_assoc_reverse.
 replace
  (power2 n * BV_to_nat (consbv (lowbit (R2 n)) nilbv) +
   power2 (S n) * BV_to_nat (highs (R2 n))) with (power2 n * BV_to_nat (R2 n)).
-trivial with v62. symmetry  in |- *. apply BV_nat_lem1.
-rewrite length_R2. exact size_not_O. exact H1. apply le_minus_minus; auto with v62.
-exact H1. simpl in |- *. rewrite minus_Sn_m. auto with v62.
-exact H0. exact H1. exact H1. rewrite length_R1. auto with v62. exact H1. 
-rewrite length_R1. auto with v62. exact H1. exact H1. rewrite length_R1.
-simpl in |- *. rewrite minus_Sn_m. simpl in |- *. auto with v62. exact H0. exact H1. 
-exact H0. rewrite plus_comm. simpl in |- *. rewrite minus_Sn_m; auto with v62.
- exact H1. rewrite length_R1. auto with v62. exact H1. exact H1. 
+trivial with arith. symmetry  in |- *. apply BV_nat_lem1.
+rewrite length_R2. exact size_not_O. exact H1. apply le_minus_minus; auto with arith.
+exact H1. simpl in |- *. rewrite minus_Sn_m. auto with arith.
+exact H0. exact H1. exact H1. rewrite length_R1. auto with arith. exact H1. 
+rewrite length_R1. auto with arith. exact H1. exact H1. rewrite length_R1.
+simpl in |- *. rewrite minus_Sn_m. simpl in |- *. auto with arith. exact H0. exact H1. 
+exact H0. rewrite plus_comm. simpl in |- *. rewrite minus_Sn_m; auto with arith.
+ exact H1. rewrite length_R1. auto with arith. exact H1. exact H1. 
 rewrite (length_app bool). rewrite length_highs. rewrite length_R1.
 simpl in |- *. rewrite plus_n_SO. replace (pred size) with (size - 1).
-rewrite minus_Sn_m. simpl in |- *. elim minus_n_O. apply minus_le_lem2; auto with v62. auto with v62.
-apply minus_n_SO. exact H1. apply (not_nil bool). rewrite length_R1; auto with v62.
+rewrite minus_Sn_m. simpl in |- *. elim minus_n_O. apply minus_le_lem2; auto with arith. auto with arith.
+apply minus_n_SO. exact H1. apply (not_nil bool). rewrite length_R1; auto with arith.
 Qed.
 
 (****************************************************************)
@@ -179,7 +179,7 @@ replace
   (power2 (S n) * BV_to_nat (stripbv (BV_full_adder_sum (R2 n) V2 false) 1) +
    power2 (n + size) * bool_to_nat (BV_full_adder_carry (R2 n) V2 false)))
  with (power2 n * BV_to_nat (R2 n) + BV_to_nat V2 * power2 n).
-trivial with v62. rewrite plus_assoc. rewrite <- highs_is_strip.
+trivial with arith. rewrite plus_assoc. rewrite <- highs_is_strip.
  unfold abit in |- *. unfold elemlist in |- *. rewrite (strip_O bool).
 rewrite <- lowbit_is_trunc. rewrite BV_nat_lem1. rewrite power2_plus.
  rewrite (mult_assoc_reverse (power2 n)). rewrite <- mult_plus_distr2.
@@ -194,32 +194,32 @@ replace
 rewrite BV_full_adder_ok.
  rewrite mult_plus_distr2. rewrite mult_plus_distr2.
 simpl in |- *. elim mult_n_O. elim plus_n_O. rewrite (mult_sym (BV_to_nat V2)).
- trivial with v62. unfold BV_full_adder in |- *. trivial with v62. 
-simpl in |- *. elim plus_n_O. trivial with v62. rewrite length_BV_full_adder_sum; auto with v62.
-rewrite length_R2; auto with v62. rewrite length_BV_full_adder_sum; auto with v62.
-rewrite length_R2; auto with v62. rewrite length_R2; auto with v62. 
-apply (not_nil bool); auto with v62. rewrite length_BV_full_adder_sum; auto with v62.
- rewrite length_R2; auto with v62. rewrite length_R2; auto with v62. 
+ trivial with arith. unfold BV_full_adder in |- *. trivial with arith. 
+simpl in |- *. elim plus_n_O. trivial with arith. rewrite length_BV_full_adder_sum; auto with arith.
+rewrite length_R2; auto with arith. rewrite length_BV_full_adder_sum; auto with arith.
+rewrite length_R2; auto with arith. rewrite length_R2; auto with arith. 
+apply (not_nil bool); auto with arith. rewrite length_BV_full_adder_sum; auto with arith.
+ rewrite length_R2; auto with arith. rewrite length_R2; auto with arith. 
 replace (S (n + (size - 1))) with (S n + (size - 1)).
 replace (S n + (size - 1)) with (n + S (size - 1)).
-rewrite minus_Sn_m. simpl in |- *. elim minus_n_O. trivial with v62. 
-auto with v62. rewrite plus_comm. simpl in |- *. rewrite plus_comm. trivial with v62.
-simpl in |- *. trivial with v62. rewrite mult_sym. simpl in |- *. elim plus_n_O.
-trivial with v62. auto with v62. exact H1. exact H1. rewrite length_R1; auto with v62.
- exact H1. apply le_minus_minus. auto with v62. exact H0. exact H1.
-rewrite length_R1. auto with v62. exact H1. rewrite length_R1; auto with v62.
+rewrite minus_Sn_m. simpl in |- *. elim minus_n_O. trivial with arith. 
+auto with arith. rewrite plus_comm. simpl in |- *. rewrite plus_comm. trivial with arith.
+simpl in |- *. trivial with arith. rewrite mult_sym. simpl in |- *. elim plus_n_O.
+trivial with arith. auto with arith. exact H1. exact H1. rewrite length_R1; auto with arith.
+ exact H1. apply le_minus_minus. auto with arith. exact H0. exact H1.
+rewrite length_R1. auto with arith. exact H1. rewrite length_R1; auto with arith.
 exact H1.
-rewrite length_R2; auto with v62. exact H0. simpl in |- *. rewrite minus_Sn_m.
-auto with v62. auto with v62. exact H1. rewrite length_BV_full_adder_sum; auto with v62.
-unfold lt in |- *. rewrite length_R2. auto with v62. exact H1. transitivity size; auto with v62. 
-rewrite length_BV_full_adder_sum; auto with v62. rewrite length_R2; auto with v62.
- rewrite length_R2; auto with v62. rewrite length_R1; auto with v62. 
+rewrite length_R2; auto with arith. exact H0. simpl in |- *. rewrite minus_Sn_m.
+auto with arith. auto with arith. exact H1. rewrite length_BV_full_adder_sum; auto with arith.
+unfold lt in |- *. rewrite length_R2. auto with arith. exact H1. transitivity size; auto with arith. 
+rewrite length_BV_full_adder_sum; auto with arith. rewrite length_R2; auto with arith.
+ rewrite length_R2; auto with arith. rewrite length_R1; auto with arith. 
 rewrite (length_app bool). rewrite (length_strip bool).
-rewrite length_R1; auto with v62. rewrite length_abit. rewrite plus_comm.
-simpl in |- *. rewrite minus_Sn_m. simpl in |- *. elim minus_n_O. apply minus_le_lem2. auto with v62.
-rewrite length_BV_full_adder_sum; auto with v62. rewrite length_R2; auto with v62.
- rewrite length_R2; auto with v62. rewrite length_R1; auto with v62. 
-replace (length V1) with (lengthbv V1); auto with v62.
+rewrite length_R1; auto with arith. rewrite length_abit. rewrite plus_comm.
+simpl in |- *. rewrite minus_Sn_m. simpl in |- *. elim minus_n_O. apply minus_le_lem2. auto with arith.
+rewrite length_BV_full_adder_sum; auto with arith. rewrite length_R2; auto with arith.
+ rewrite length_R2; auto with arith. rewrite length_R1; auto with arith. 
+replace (length V1) with (lengthbv V1); auto with arith.
 rewrite length_V1_size. exact H1. exact H1. 
 
 Qed.
@@ -241,26 +241,26 @@ rewrite <- (R1_lem3 n). rewrite R1_eq2. rewrite R2_eq2.
 rewrite <- lowbit_is_abit. case (lowbit (R1 n)).
 replace (consbv (lowbit (BV_full_adder_sum (R2 n) V2 false)) nilbv) with
  (abit (BV_full_adder_sum (R2 n) V2 false) 0).
-apply inv_ind_true. auto with v62.
+apply inv_ind_true. auto with arith.
 intros. apply H. exact H1. exact H0.
 apply le_Sn_le; exact H0. unfold abit in |- *. rewrite lowbit_is_trunc.
-unfold elemlist in |- *. rewrite (strip_O bool). trivial with v62.
+unfold elemlist in |- *. rewrite (strip_O bool). trivial with arith.
 apply (not_nil bool). rewrite length_BV_full_adder_sum. rewrite length_R2.
 exact size_not_O. apply le_Sn_le; exact H0.
-rewrite length_R2. rewrite length_V2_size. trivial with v62.
+rewrite length_R2. rewrite length_V2_size. trivial with arith.
 apply le_Sn_le; exact H0.
 replace (consbv (lowbit (BV_full_adder_sum (R2 n) V2 false)) nilbv) with
  (abit (BV_full_adder_sum (R2 n) V2 false) 0).
-apply inv_ind_false. trivial with v62.
+apply inv_ind_false. trivial with arith.
 exact H. exact H0. apply le_Sn_le; exact H0. rewrite lowbit_is_trunc.
-unfold abit in |- *. unfold elemlist in |- *. rewrite (strip_O bool). trivial with v62.
+unfold abit in |- *. unfold elemlist in |- *. rewrite (strip_O bool). trivial with arith.
 apply (not_nil bool).
-rewrite length_BV_full_adder_sum. rewrite length_R2; auto with v62.
+rewrite length_BV_full_adder_sum. rewrite length_R2; auto with arith.
 transitivity size.
-rewrite length_R2; trivial with v62. apply le_Sn_le; exact H0. auto with v62.
-apply (not_nil bool). rewrite length_R1; auto with v62. auto with v62. auto with v62.
+rewrite length_R2; trivial with arith. apply le_Sn_le; exact H0. auto with arith.
+apply (not_nil bool). rewrite length_R1; auto with arith. auto with arith. auto with arith.
 replace (length V1) with (lengthbv V1). rewrite length_V1_size. exact H0.
-auto with v62.
+auto with arith.
 
 Qed.
 
@@ -273,6 +273,6 @@ Theorem Correct :
 
 intros. rewrite <- (strip_O bool (R1 size)).
 replace (BV_to_nat V1) with (BV_to_nat (truncbv V1 size)).
-rewrite (minus_n_n size). apply Invariant. auto with v62.
-rewrite <- length_V1_size. rewrite (trunc_all bool). trivial with v62.
+rewrite (minus_n_n size). apply Invariant. auto with arith.
+rewrite <- length_V1_size. rewrite (trunc_all bool). trivial with arith.
 Qed.

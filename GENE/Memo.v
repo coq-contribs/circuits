@@ -61,7 +61,7 @@ Lemma read_write :
  forall (m : Memo) (a : addr) (v : BV),
  AddrOK m a -> MemoRead (MemoWrite m a v) a = MMemo v.
 unfold Memo, AddrOK, MemoRead, MemoWrite, MMemo in |- *.
-unfold MemoSize in |- *. intros. apply replace_ok; auto with v62.
+unfold MemoSize in |- *. intros. apply replace_ok; auto.
 Qed.
 
 (********************************************************************)

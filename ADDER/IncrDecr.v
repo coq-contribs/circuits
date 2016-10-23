@@ -69,42 +69,42 @@ Fixpoint BV_decrement_carry (l : list bool) : bool :=
 
 Lemma length_BV_increment :
  forall v : BV, lengthbv (BV_increment v) = lengthbv v.
-simple induction v. auto with v62.
+simple induction v. auto.
 simple induction a.
-simpl in |- *. intros. rewrite H; trivial with v62.
-simpl in |- *. intros. trivial with v62.
+simpl in |- *. intros. rewrite H; trivial.
+simpl in |- *. intros. trivial.
 Qed.
 
 Lemma length_BV_decrement :
  forall v : BV, lengthbv (BV_decrement v) = lengthbv v.
-simple induction v. auto with v62.
+simple induction v. auto.
 simple induction a.
-simpl in |- *. intros. trivial with v62.
+simpl in |- *. intros. trivial.
 
-simpl in |- *. intros. rewrite H; trivial with v62.
+simpl in |- *. intros. rewrite H; trivial.
 Qed.
 
 Lemma BV_increment_limit :
  forall n : nat,
  BV_increment (list_const bool n true) = list_const bool n false.
-simple induction n. simpl in |- *. auto with v62. intros. simpl in |- *. rewrite H; trivial with v62.
+simple induction n. simpl in |- *. auto. intros. simpl in |- *. rewrite H; trivial.
 Qed.
 
 Lemma BV_decrement_limit :
  forall n : nat,
  BV_decrement (list_const bool n false) = list_const bool n true.
-simple induction n. simpl in |- *. auto with v62. intros. simpl in |- *. rewrite H; trivial with v62.
+simple induction n. simpl in |- *. auto. intros. simpl in |- *. rewrite H; trivial.
 Qed.
 
 
 Lemma BV_increment_limit_carry :
  forall n : nat, BV_increment_carry (list_const bool n true) = true.
-simple induction n. auto with v62. intros. simpl in |- *. exact H.
+simple induction n. auto. intros. simpl in |- *. exact H.
 Qed.
 
 Lemma BV_decrement_limit_carry :
  forall n : nat, BV_decrement_carry (list_const bool n false) = true.
-simple induction n. auto with v62. intros. simpl in |- *. exact H.
+simple induction n. auto. intros. simpl in |- *. exact H.
 Qed.
 
 
@@ -113,20 +113,20 @@ Lemma BV_increment_adder :
  appbv (BV_increment v) (consbv (BV_increment_carry v) nilbv) =
  BV_full_adder v nilbv true.
 simple induction v.
-simpl in |- *. unfold BV_full_adder in |- *. unfold nilbv, consbv, appbv in |- *. simpl in |- *. trivial with v62.
+simpl in |- *. unfold BV_full_adder in |- *. unfold nilbv, consbv, appbv in |- *. simpl in |- *. trivial.
 (* Induction a. Unfold consbv nilbv appbv . Simpl. Intros. Rewrite -> H.*)
 simple induction a. intros. unfold consbv, nilbv, appbv in |- *. simpl in |- *.
 unfold consbv, nilbv, appbv in H. rewrite H.
 (* *)
 unfold BV_full_adder in |- *. simpl in |- *. replace (half_adder_sum true true) with false.
-trivial with v62.
-auto with v62.
+trivial.
+auto.
 unfold BV_full_adder in |- *. unfold consbv, nilbv, appbv in |- *. intros. simpl in |- *.
 replace (half_adder_sum false true) with true.
 replace (BV_full_adder_sum l nil false) with l.
 replace (BV_full_adder_carry l nil false) with false.
-trivial with v62.
-auto with v62. auto with v62. auto with v62.
+trivial.
+auto. auto. auto.
 Qed.
 
 Lemma BV_increment_ok :
@@ -134,16 +134,16 @@ Lemma BV_increment_ok :
  BV_to_nat (appbv (BV_increment v) (consbv (BV_increment_carry v) nilbv)) =
  S (BV_to_nat v).
 intro. rewrite BV_increment_adder. rewrite BV_full_adder_ok.
-simpl in |- *. elim plus_n_O. elim plus_n_Sm. auto with v62.
+simpl in |- *. elim plus_n_O. elim plus_n_Sm. auto.
 Qed.
 
 Lemma BV_decr_incr : forall v : BV, BV_decrement (BV_increment v) = v.
-simple induction v. simpl in |- *. trivial with v62.
-simple induction a. intros. simpl in |- *. rewrite H; trivial with v62.
-intros. simpl in |- *. trivial with v62.
+simple induction v. simpl in |- *. trivial.
+simple induction a. intros. simpl in |- *. rewrite H; trivial.
+intros. simpl in |- *. trivial.
 Qed.
 
 Lemma BV_incr_decr : forall v : BV, BV_increment (BV_decrement v) = v.
 simple induction v.
-auto with v62. simple induction a; intros; simpl in |- *. trivial with v62. rewrite H; trivial with v62.
+auto. simple induction a; intros; simpl in |- *. trivial. rewrite H; trivial.
 Qed.
