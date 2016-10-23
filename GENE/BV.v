@@ -64,11 +64,11 @@ Fixpoint BV_to_nat (v : BV) : nat :=
   end.
 
 Lemma BV_to_nat_eq1 : BV_to_nat nilbv = 0.
-auto with v62. Qed.
+auto. Qed.
 Lemma BV_to_nat_eq2 :
  forall (b : bool) (w : BV),
  BV_to_nat (consbv b w) = bool_to_nat b + (BV_to_nat w + BV_to_nat w).
-auto with v62. Qed.
+auto. Qed.
 
 (* In the current version of Coq (V 5.10.14.b) it is impossible to use
 recursive definitions with BV's constructors on left of "=>" as in the
@@ -85,13 +85,13 @@ Lemma BV_to_nat_app :
  forall (l n : BV) (ll : nat),
  (******************)
  lenbv l ll -> BV_to_nat (appbv l n) = BV_to_nat l + power2 ll * BV_to_nat n.
-unfold BV, lenbv, appbv in |- *. simple induction l. intros. inversion H. simpl in |- *. auto with v62.
+unfold BV, lenbv, appbv in |- *. simple induction l. intros. inversion H. simpl in |- *. auto.
 intros. simpl in |- *. inversion H0. simpl in |- *.
 rewrite (H n l1). rewrite mult_plus_distr_r. repeat rewrite plus_assoc.
 rewrite
  (plus_permute2 (bool_to_nat a + BV_to_nat l0) (power2 l1 * BV_to_nat n)
     (BV_to_nat l0)).
-auto with v62.
+auto.
 exact H4.
 Qed. Hint Resolve BV_to_nat_app.
 
@@ -99,14 +99,14 @@ Lemma BV_to_nat_app2 :
  forall l n : BV,
  (*******************)
  BV_to_nat (appbv l n) = BV_to_nat l + power2 (lengthbv l) * BV_to_nat n.
-intros. apply BV_to_nat_app. auto with v62. unfold lenbv, lengthbv in |- *. apply len_length.
+intros. apply BV_to_nat_app. auto. unfold lenbv, lengthbv in |- *. apply len_length.
 Qed. Hint Resolve BV_to_nat_app2.
 
 Lemma BV_null_nat : forall n : nat, BV_to_nat (BV_null n) = 0.
 (****************)
 unfold BV_null in |- *.
-simple induction n; auto with v62.
-intros. simpl in |- *. rewrite H. auto with v62.
+simple induction n; auto.
+intros. simpl in |- *. rewrite H. auto.
 Qed. Hint Resolve BV_null_nat.
 
 Lemma length_BV_null : forall n : nat, lengthbv (BV_null n) = n.

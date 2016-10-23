@@ -105,7 +105,7 @@ Lemma di_t :
  | true => di t di0 cx0 al0 mem0
  | false => BV_increment (di t di0 cx0 al0 mem0)
  end.
-auto with v62.
+auto.
 Qed.
 
 Lemma cx_t :
@@ -115,7 +115,7 @@ Lemma cx_t :
  | true => cx t di0 cx0 al0 mem0
  | false => BV_decrement (cx t di0 cx0 al0 mem0)
  end.
-auto with v62.
+auto.
 Qed.
 
 Lemma al_t :
@@ -125,13 +125,13 @@ Lemma al_t :
  | true => al t di0 cx0 al0 mem0
  | false => al t di0 cx0 al0 mem0
  end.
-auto with v62.
+auto.
 Qed.
 
 Lemma al_constant :
  forall (t : nat) (di0 cx0 al0 : BV) (mem0 : Memo),
  al t di0 cx0 al0 mem0 = al0.
-simple induction t. auto with v62.
+simple induction t. auto.
 intros. rewrite al_t. elim (IsNull (cx n di0 cx0 al0 mem0)). apply H. apply H.
 Qed.
 
@@ -144,7 +144,7 @@ Lemma mem_t :
      MemoWrite (mem t di0 cx0 al0 mem0) (BV_to_nat (di t di0 cx0 al0 mem0))
        (al t di0 cx0 al0 mem0)
  end.
-auto with v62.
+auto.
 Qed.
 (****************************************************************)
 (* Longueurs des registres *)

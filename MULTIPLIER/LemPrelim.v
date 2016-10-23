@@ -38,19 +38,19 @@ Lemma R1_lem :
  forall t : nat, (* R1(t)[0:n-1-t]=B[t:n-1] *)
  t <= size -> truncbv (R1 t) (size - t) = stripbv V1 t.
 simple induction t. elim minus_n_O. rewrite <- (length_R1 0).
-intro. rewrite (trunc_all bool). rewrite (strip_O bool). auto with v62.
-auto with v62. intros. rewrite R1_eq2. rewrite highs_is_strip.
+intro. rewrite (trunc_all bool). rewrite (strip_O bool). auto with arith.
+auto with arith. intros. rewrite R1_eq2. rewrite highs_is_strip.
 rewrite (trunc_app bool). rewrite (trunc_strip bool).
 rewrite (length_strip bool). rewrite length_R1.
 replace (size - S n - (size - 1)) with 0.
 rewrite (trunc_O bool).
 replace (1 + (size - S n)) with (size - n).
 rewrite (app_v_nil bool). unfold truncbv in H.
-rewrite H. rewrite (strip_strip bool). rewrite plus_comm. simpl in |- *. auto with v62.
+rewrite H. rewrite (strip_strip bool). rewrite plus_comm. simpl in |- *. auto with arith.
 apply le_Sn_le; exact H0.
-simpl in |- *. rewrite minus_Sn_m. simpl in |- *. trivial with v62.
+simpl in |- *. rewrite minus_Sn_m. simpl in |- *. trivial with arith.
 exact H0.
-symmetry  in |- *. apply minus_le_O. apply le_minus_minus. auto with v62.
+symmetry  in |- *. apply minus_le_O. apply le_minus_minus. auto with arith.
 apply le_Sn_le; exact H0.
 rewrite length_R1. apply le_SO_size. apply le_Sn_le; exact H0.
 Qed.
@@ -67,8 +67,8 @@ Lemma R1_lem3 :
  t < size -> abit (R1 t) 0 = abit V1 t.
 intros. unfold abit in |- *. unfold elemlist in |- *.
 apply (trunc_plus_petit bool) with (size - t).
-unfold lt in H. inversion H. rewrite <- minus_Sn_m. auto with v62. auto with v62.
-rewrite <- minus_Sn_m. auto with v62. apply le_Sn_le; auto with v62.
+unfold lt in H. inversion H. rewrite <- minus_Sn_m. auto with arith. auto with arith.
+rewrite <- minus_Sn_m. auto with arith. apply le_Sn_le; auto with arith.
 rewrite (strip_O bool). apply R1_lem. apply lt_le_weak. exact H.
 Qed.
 
@@ -94,8 +94,8 @@ Lemma BV_to_nat_lem0 :
 
 intros. rewrite lowbit_is_trunc. rewrite highs_is_strip.
 replace (power2 1) with (power2 (length (trunc bool v 1))).
-rewrite <- BV_to_nat_app2. rewrite (app_trunc_strip bool). trivial with v62.
-rewrite (length_trunc bool). trivial with v62.
+rewrite <- BV_to_nat_app2. rewrite (app_trunc_strip bool). trivial with arith.
+rewrite (length_trunc bool). trivial with arith.
 apply (le_SO_length_v bool). exact H. apply (not_nil bool). exact H.
 Qed.
 
@@ -116,7 +116,7 @@ rewrite
  .
 rewrite mult_plus_distr_r.
 simpl in |- *. elim plus_n_O. elim plus_n_O. rewrite mult_plus_distr_r.
-rewrite (mult_sym (power2 n)). rewrite (mult_sym (power2 n)). trivial with v62.
-rewrite app_lowbit_highs. trivial with v62.
+rewrite (mult_sym (power2 n)). rewrite (mult_sym (power2 n)). trivial with arith.
+rewrite app_lowbit_highs. trivial with arith.
 apply (not_nil bool). exact H.
 Qed.

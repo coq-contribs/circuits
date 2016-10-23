@@ -36,13 +36,13 @@ Require Export Adder.
 
 Lemma BV_full_adder_nil_true_ok :
  forall v : BV, BV_to_nat (BV_full_adder v nilbv true) = S (BV_to_nat v).
-unfold nilbv in |- *. simple induction v; auto with v62. unfold BV_full_adder in |- *. intros.
+unfold nilbv in |- *. simple induction v; auto with arith. unfold BV_full_adder in |- *. intros.
 rewrite BV_full_adder_sum_eq3. rewrite BV_full_adder_carry_eq3.
 rewrite (app_eq2 bool). rewrite half_adder_carry_true.
-simpl in |- *. elim a. unfold appbv in H. rewrite H. simpl in |- *. auto with v62.
+simpl in |- *. elim a. unfold appbv in H. rewrite H. simpl in |- *. auto with arith.
 rewrite BV_full_adder_sum_v_nil_false.
 rewrite BV_full_adder_carry_v_nil_false. rewrite BV_to_nat_app2.
-simpl in |- *. elim mult_n_O. elim plus_n_O. trivial with v62.
+simpl in |- *. elim mult_n_O. elim plus_n_O. trivial with arith.
 Qed.
 
 
@@ -50,11 +50,11 @@ Lemma BV_full_adder_nil_ok :
  forall (v : BV) (cin : bool),
  BV_to_nat (BV_full_adder v nilbv cin) = BV_to_nat v + bool_to_nat cin.
 
-simple induction v. simple induction cin; auto with v62.
-simple induction cin. rewrite BV_full_adder_nil_true_ok. simpl in |- *. auto with v62.
+simple induction v. simple induction cin; auto with arith.
+simple induction cin. rewrite BV_full_adder_nil_true_ok. simpl in |- *. auto with arith.
 unfold BV_full_adder in |- *. rewrite BV_full_adder_sum_v_nil_false.
 rewrite BV_full_adder_carry_v_nil_false. rewrite BV_to_nat_app2.
-simpl in |- *. elim mult_n_O. elim plus_n_O. trivial with v62.
+simpl in |- *. elim mult_n_O. elim plus_n_O. trivial with arith.
 Qed.
 
 (****************************************************************)
@@ -68,7 +68,7 @@ intros.
 rewrite BV_full_adder_sym.
 simpl in |- *.
 rewrite BV_full_adder_nil_ok.
-auto with v62.
+auto with arith.
 
 unfold BV_full_adder in |- *.
 simple induction w.
@@ -95,9 +95,9 @@ rewrite (plus_permute2 (bool_to_nat a) (bool_to_nat cin) (BV_to_nat l)).
 rewrite
  (plus_permute2 (bool_to_nat a + BV_to_nat l) (bool_to_nat cin) (BV_to_nat l))
  .
-trivial with v62.
+trivial with arith.
 
-trivial with v62.
+trivial with arith.
 
 repeat rewrite plus_assoc.
 rewrite
@@ -109,7 +109,7 @@ rewrite
  (plus_permute2 (BV_to_nat l + bool_to_nat (half_adder_carry a cin))
     (bool_to_nat (half_adder_carry a cin)) (BV_to_nat l))
  .
-trivial with v62.
+trivial with arith.
 
 intros.
 simpl in |- *.
@@ -132,7 +132,7 @@ rewrite
  .
 rewrite (plus_comm (bool_to_nat a0) (BV_to_nat l)).
 rewrite (plus_permute2 (BV_to_nat l) (bool_to_nat a0) (BV_to_nat l)).
-trivial with v62.
+trivial with arith.
 
 elim a0.
 simpl in |- *.
@@ -145,15 +145,15 @@ elim plus_n_Sm.
 elim plus_n_O.
 repeat rewrite plus_assoc.
 rewrite (plus_permute2 (BV_to_nat l) (BV_to_nat l0) (BV_to_nat l)).
-trivial with v62.
+trivial with arith.
 
 simpl in |- *.
 repeat rewrite <- plus_n_Sm.
 repeat rewrite <- plus_n_O.
 repeat rewrite plus_assoc.
-try trivial with v62.
+try trivial with arith.
 rewrite (plus_permute2 (BV_to_nat l) (BV_to_nat l0) (BV_to_nat l)).
-try trivial with v62.
+try trivial with arith.
 
 elim a0.
 simpl in |- *.
@@ -162,18 +162,18 @@ repeat rewrite <- plus_n_O.
 repeat rewrite plus_assoc.
 simpl in |- *.
 rewrite (plus_permute2 (BV_to_nat l) (BV_to_nat l0) (BV_to_nat l)).
-trivial with v62.
+trivial with arith.
 
 simpl in |- *.
 repeat rewrite <- plus_n_O.
 repeat rewrite plus_assoc.
 rewrite (plus_permute2 (BV_to_nat l) (BV_to_nat l0) (BV_to_nat l)).
-trivial with v62.
+trivial with arith.
 
 elim a0; simpl in |- *; repeat rewrite <- plus_n_Sm;
  repeat rewrite <- plus_n_O; repeat rewrite plus_assoc;
  rewrite (plus_permute2 (BV_to_nat l) (BV_to_nat l0) (BV_to_nat l));
- trivial with v62.
+ trivial with arith.
 
 Qed.
 (****************************************************************)
